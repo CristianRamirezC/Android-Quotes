@@ -15,5 +15,5 @@ class QuoteViewModel : ViewModel() {
     private var _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    
+
 }
