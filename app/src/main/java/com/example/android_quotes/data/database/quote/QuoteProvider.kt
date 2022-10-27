@@ -1,4 +1,6 @@
-package com.example.android_quotes.model.quote
+package com.example.android_quotes.data.database.quote
+
+import com.example.android_quotes.data.model.quote.QuoteModel
 
 class QuoteProvider {
     companion object {
@@ -13,7 +15,7 @@ class QuoteProvider {
                 author = "Anonymous"
             ),
             QuoteModel(
-                quote = "“Software Developer” – An organism that turns caffeine into software",
+                quote = "Software Developer” – An organism that turns caffeine into software",
                 author = "Anonymous"
             ),
             QuoteModel(
@@ -42,7 +44,7 @@ class QuoteProvider {
                 quote = "Software and cathedrals are much the same — first we build them, then we pray.",
                 author = "Anonymous"
             ),
-            QuoteModel(quote = "Hello World", author = "Programmers")
+            QuoteModel(quote = "Hello World!", author = "Programmers")
         )
     }
 }

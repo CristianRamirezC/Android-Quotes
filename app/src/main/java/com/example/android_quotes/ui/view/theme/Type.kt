@@ -1,4 +1,4 @@
-package com.example.android_quotes.ui.theme
+package com.example.android_quotes.ui.view.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

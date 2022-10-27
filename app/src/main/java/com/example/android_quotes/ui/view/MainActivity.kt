@@ -1,4 +1,4 @@
-package com.example.android_quotes
+package com.example.android_quotes.ui.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.example.android_quotes.ui.QuoteScreen
-import com.example.android_quotes.ui.theme.AndroidQuotesTheme
-import com.example.android_quotes.viewModel.quote.QuoteViewModel
+import com.example.android_quotes.view.QuoteScreen
+import com.example.android_quotes.ui.view.theme.AndroidQuotesTheme
+import com.example.android_quotes.ui.viewModel.quote.QuoteViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,9 +1,8 @@
-package com.example.android_quotes.ui
+package com.example.android_quotes.view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,38 +12,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.android_quotes.viewModel.quote.QuoteViewModel
+import com.example.android_quotes.ui.viewModel.quote.QuoteViewModel
 
 @Composable
 fun QuoteScreen(
     quoteViewModel: QuoteViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val quote: String by quoteViewModel.quote.observeAsState(initial = "\"It's not a bug, it's an undocumented feature\"")
-    val author: String by quoteViewModel.author.observeAsState(initial = "unknown")
-    Column(
+    val quote: String by quoteViewModel.quote.observeAsState(initial = "")
+    val author: String by quoteViewModel.author.observeAsState(initial = "")
+    Box(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color(0xFF4F1497)),
-        verticalArrangement = Arrangement.SpaceAround,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(color = Color(0xFF4F1497))
+            .clickable {
+                quoteViewModel.randomQuote()
+            }
+            .padding(20.dp)
     ) {
         Text(
-            modifier = Modifier,
-            text = quote,
+            modifier = Modifier.align(Alignment.Center),
+            text = "\"$quote\"",
             textAlign = TextAlign.Center,
-            fontSize = 30.sp,
+            fontSize = 24.sp,
             color = Color.White,
             fontStyle = FontStyle.Italic
         )
         Text(
-            modifier = Modifier,
+            modifier = Modifier.align(Alignment.BottomCenter),
             text = author,
-            textAlign = TextAlign.End,
-            fontSize = 25.sp,
+            textAlign = TextAlign.Center,
+            fontSize = 24.sp,
             color = Color.White
-
         )
     }
 }

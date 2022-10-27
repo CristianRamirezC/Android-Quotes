@@ -1,4 +1,4 @@
-package com.example.android_quotes.ui.theme
+package com.example.android_quotes.ui.view.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
