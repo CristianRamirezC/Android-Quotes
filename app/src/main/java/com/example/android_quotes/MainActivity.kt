@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.example.android_quotes.ui.QuoteScreen
 import com.example.android_quotes.ui.theme.AndroidQuotesTheme
-import com.example.android_quotes.viewModel.QuoteViewModel
+import com.example.android_quotes.viewModel.quote.QuoteViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

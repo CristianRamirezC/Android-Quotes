@@ -1,4 +1,4 @@
-package com.example.android_quotes.viewModel
+package com.example.android_quotes.viewModel.quote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
