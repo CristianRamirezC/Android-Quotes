@@ -3,6 +3,7 @@ package com.example.android_quotes.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,29 +24,37 @@ fun QuoteScreen(
 ) {
     val quote: String by quoteViewModel.quote.observeAsState(initial = "")
     val author: String by quoteViewModel.author.observeAsState(initial = "")
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = Color(0xFF4F1497))
-            .clickable {
-                quoteViewModel.randomQuote()
-            }
-            .padding(20.dp)
-    ) {
-        Text(
-            modifier = Modifier.align(Alignment.Center),
-            text = "\"$quote\"",
-            textAlign = TextAlign.Center,
-            fontSize = 24.sp,
-            color = Color.White,
-            fontStyle = FontStyle.Italic
-        )
-        Text(
-            modifier = Modifier.align(Alignment.BottomCenter),
-            text = author,
-            textAlign = TextAlign.Center,
-            fontSize = 24.sp,
-            color = Color.White
-        )
+    val isLoading: Boolean by quoteViewModel.isLoading.observeAsState(initial = false)
+
+    if (isLoading) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+    } else {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .background(color = Color(0xFF4F1497))
+                .clickable {
+                    quoteViewModel.randomQuote()
+                }
+                .padding(20.dp)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "\"$quote\"",
+                textAlign = TextAlign.Center,
+                fontSize = 24.sp,
+                color = Color.White,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                text = author,
+                textAlign = TextAlign.Center,
+                fontSize = 24.sp,
+                color = Color.White
+            )
+        }
     }
 }

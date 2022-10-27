@@ -12,7 +12,12 @@ import com.example.android_quotes.ui.view.theme.AndroidQuotesTheme
 import com.example.android_quotes.ui.viewModel.quote.QuoteViewModel
 
 class MainActivity : ComponentActivity() {
+    private val quoteViewModel: QuoteViewModel = QuoteViewModel()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        quoteViewModel.onCreate()
         super.onCreate(savedInstanceState)
         setContent {
             AndroidQuotesTheme {
@@ -20,7 +25,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
-                    QuoteScreen(quoteViewModel = QuoteViewModel())
+                    QuoteScreen(quoteViewModel = quoteViewModel)
                 }
             }
         }
