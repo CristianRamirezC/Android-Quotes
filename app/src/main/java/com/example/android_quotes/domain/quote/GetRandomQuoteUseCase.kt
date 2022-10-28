@@ -8,10 +8,10 @@ class GetRandomQuoteUseCase {
     private val repository = QuoteRepository()
 
     suspend operator fun invoke(): QuoteModel {
-        val position = (0..10).random()
         val quotes = repository.getAllQuotes()
         return if (quotes.isNotEmpty()) {
-            quotes[position]
+            val randomPosition = (quotes.indices.random())
+            quotes[randomPosition]
         } else {
             QuoteModel()
         }
