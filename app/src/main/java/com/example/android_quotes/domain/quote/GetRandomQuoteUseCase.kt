@@ -7,13 +7,13 @@ class GetRandomQuoteUseCase {
 
     private val repository = QuoteRepository()
 
-    suspend operator fun invoke(): QuoteModel {
+    suspend operator fun invoke(): QuoteModel?  {
         val quotes = repository.getAllQuotes()
         return if (quotes.isNotEmpty()) {
-            val randomPosition = (quotes.indices.random())
+            val randomPosition = quotes.indices.random()
             quotes[randomPosition]
         } else {
-            QuoteModel()
+            null
         }
     }
 }

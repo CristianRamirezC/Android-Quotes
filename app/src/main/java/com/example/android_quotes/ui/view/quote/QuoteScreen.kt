@@ -1,8 +1,10 @@
 package com.example.android_quotes.view
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.BoxScopeInstance.align
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,6 +13,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,10 +28,30 @@ fun QuoteScreen(
     val quote: String by quoteViewModel.quote.observeAsState(initial = "")
     val author: String by quoteViewModel.author.observeAsState(initial = "")
     val isLoading: Boolean by quoteViewModel.isLoading.observeAsState(initial = false)
+    val isErrorGettingQuotes by quoteViewModel.isErrorGettingQuotes.observeAsState(initial = false)
 
-    if (isLoading) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+    if (isErrorGettingQuotes) {
+        Toast.makeText(LocalContext.current, "Error getting Quotes", Toast.LENGTH_SHORT).show()
+    }
+    if (isLoading || isErrorGettingQuotes) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color(0xFF4F1497))
+                .padding(20.dp)
+        ) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+
+            if (isErrorGettingQuotes) {
+                val errorMessage = "Oop! An error has occurred"
+                Text(
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    text = errorMessage,
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    color = Color.White
+                )
+            }
         }
     } else {
         Box(
@@ -42,7 +65,7 @@ fun QuoteScreen(
         ) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = "\"$quote\"",
+                text = "\"$quote \"",
                 textAlign = TextAlign.Center,
                 fontSize = 24.sp,
                 color = Color.White,

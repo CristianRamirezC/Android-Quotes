@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_quotes.data.model.quote.QuoteModel
-import com.example.android_quotes.data.database.quote.QuoteProvider
 import com.example.android_quotes.domain.quote.GetQuotesUseCase
 import com.example.android_quotes.domain.quote.GetRandomQuoteUseCase
 import kotlinx.coroutines.launch
@@ -21,16 +20,22 @@ class QuoteViewModel : ViewModel() {
     private var _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    var getQuoteUseCase = GetQuotesUseCase()
+    private var _isErrorGettingQuotes = MutableLiveData<Boolean>()
+    val isErrorGettingQuotes: LiveData<Boolean> = _isErrorGettingQuotes
+
+    var getQuotesUseCase = GetQuotesUseCase()
     var getRandomQuoteUseCase = GetRandomQuoteUseCase()
 
     fun onCreate() {
         viewModelScope.launch {
             _isLoading.postValue(true)
-            val result = getQuoteUseCase()
-            if (result.isNotEmpty()) {
-                _quote.postValue(result[0].quote)
-                _author.postValue(result[0].author)
+            val quotes = getQuotesUseCase()
+            if (quotes.isEmpty()) {
+                _quote.postValue(quotes[0].quote)
+                _author.postValue(quotes[0].author)
+                _isErrorGettingQuotes.postValue(true)
+            } else {
+                _isErrorGettingQuotes.postValue(true)
             }
             _isLoading.postValue(false)
         }
@@ -39,9 +44,9 @@ class QuoteViewModel : ViewModel() {
     fun randomQuote() {
         _isLoading.postValue(true)
         viewModelScope.launch {
-            val result = getRandomQuoteUseCase()
-            _quote.postValue(result.quote)
-            _author.postValue(result.author)
+            val randomQuote: QuoteModel? = getRandomQuoteUseCase()
+            _quote.postValue(randomQuote?.quote)
+            _author.postValue(randomQuote?.author)
         }
         _isLoading.postValue(false)
 
