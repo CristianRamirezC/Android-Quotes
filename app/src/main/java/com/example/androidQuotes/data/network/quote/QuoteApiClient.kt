@@ -1,0 +1,10 @@
+package com.example.androidQuotes.data.network.quote
+
+import com.example.androidQuotes.data.model.quote.QuoteModel
+import retrofit2.Response
+import retrofit2.http.GET
+
+interface QuoteApiClient {
+    @GET("1a4fb01c-e0dd-4ae9-b550-65c0455e9c92")
+    suspend fun getAllQuotes(): Response<List<QuoteModel>>
+}
