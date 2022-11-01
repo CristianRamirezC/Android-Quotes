@@ -30,10 +30,10 @@ class QuoteViewModel : ViewModel() {
         viewModelScope.launch {
             _isLoading.postValue(true)
             val quotes = getQuotesUseCase()
-            if (quotes.isEmpty()) {
-                _quote.postValue(quotes[0].quote)
-                _author.postValue(quotes[0].author)
-                _isErrorGettingQuotes.postValue(true)
+            if (quotes.isNotEmpty()) {
+                _quote.postValue(quotes.first().quote)
+                _author.postValue(quotes.first().author)
+                _isErrorGettingQuotes.postValue(false)
             } else {
                 _isErrorGettingQuotes.postValue(true)
             }
@@ -45,8 +45,12 @@ class QuoteViewModel : ViewModel() {
         _isLoading.postValue(true)
         viewModelScope.launch {
             val randomQuote: QuoteModel? = getRandomQuoteUseCase()
-            _quote.postValue(randomQuote?.quote)
-            _author.postValue(randomQuote?.author)
+            if (randomQuote != null) {
+                _quote.postValue(randomQuote.quote)
+                _author.postValue(randomQuote.author)
+            } else {
+                _isErrorGettingQuotes.postValue(true)
+            }
         }
         _isLoading.postValue(false)
 

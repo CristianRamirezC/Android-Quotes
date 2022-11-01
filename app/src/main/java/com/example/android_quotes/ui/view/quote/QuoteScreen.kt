@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.BoxScopeInstance.align
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,23 +33,23 @@ fun QuoteScreen(
         Toast.makeText(LocalContext.current, "Error getting Quotes", Toast.LENGTH_SHORT).show()
     }
     if (isLoading || isErrorGettingQuotes) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = Color(0xFF4F1497))
                 .padding(20.dp)
         ) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-
             if (isErrorGettingQuotes) {
-                val errorMessage = "Oop! An error has occurred"
+                val errorMessage = "Oops! An error has occurred retrieving quotes"
                 Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier.align(Alignment.Center),
                     text = errorMessage,
                     textAlign = TextAlign.Center,
                     fontSize = 24.sp,
                     color = Color.White
                 )
+            } else if (isLoading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
     } else {
