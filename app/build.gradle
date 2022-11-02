@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.android_quotes'
+    namespace 'com.example.androidQuotes'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.android_quotes"
+        applicationId "com.example.androidQuotes"
         minSdk 23
         targetSdk 33
         versionCode 1
