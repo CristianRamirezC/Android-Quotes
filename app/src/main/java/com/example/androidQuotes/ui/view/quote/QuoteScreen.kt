@@ -1,5 +1,6 @@
-package com.example.androidQuotes.view
+package com.example.androidQuotes.ui.view.quote
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,9 +29,10 @@ fun QuoteScreen(
     val author: String by quoteViewModel.author.observeAsState(initial = "")
     val isLoading: Boolean by quoteViewModel.isLoading.observeAsState(initial = false)
     val isErrorGettingQuotes by quoteViewModel.isErrorGettingQuotes.observeAsState(initial = false)
+    val context: Context = LocalContext.current
 
     if (isErrorGettingQuotes) {
-        Toast.makeText(LocalContext.current, "Error getting Quotes", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Error getting Quotes", Toast.LENGTH_SHORT).show()
     }
     if (isLoading || isErrorGettingQuotes) {
         Box(
