@@ -35,9 +35,9 @@ class QuoteViewModel
             _isLoading.postValue(true)
             val quotes = getQuotesUseCase()
             if (quotes.isNotEmpty()) {
-                _quote.postValue(quotes.first().quote)
-                _author.postValue(quotes.first().author)
-                _isErrorGettingQuotes.postValue(false)
+                val firstQuoteToShow: QuoteModel = quotes[quotes.indices.random()]
+                _quote.postValue(firstQuoteToShow.quote)
+                _author.postValue(firstQuoteToShow.author)
             } else {
                 _isErrorGettingQuotes.postValue(true)
             }
@@ -58,7 +58,5 @@ class QuoteViewModel
             }
             _isLoading.postValue(false)
         }
-
     }
-
 }
