@@ -6,10 +6,11 @@ import com.example.androidQuotes.data.repository.quote.QuoteRepository
 import javax.inject.Inject
 
 class GetRandomQuoteUseCase @Inject constructor(
-    private val repository: QuoteRepository
+    private val repository: QuoteRepository,
+    private val quoteProvider: QuoteProvider
 ) {
     suspend operator fun invoke(): QuoteModel? {
-        val quotes: List<QuoteModel> = QuoteProvider.quotes.ifEmpty {
+        val quotes: List<QuoteModel> = quoteProvider.quotes.ifEmpty {
             repository.getAllQuotes()
         }
         return if (quotes.isNotEmpty()) {
