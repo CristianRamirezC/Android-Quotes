@@ -5,9 +5,9 @@ import com.example.androidQuotes.data.model.quote.QuoteModel
 import com.example.androidQuotes.data.network.quote.QuoteService
 import javax.inject.Inject
 
-class QuoteRepository @Inject constructor() {
-
-    private val api = QuoteService()
+class QuoteRepository @Inject constructor(
+    private val api: QuoteService
+) {
     suspend fun getAllQuotes(): List<QuoteModel> {
         val response: List<QuoteModel> = api.getQuotes()
         QuoteProvider.quotes = response
