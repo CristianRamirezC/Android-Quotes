@@ -1,4 +1,4 @@
-package com.example.androidQuotes.di
+package com.example.androidQuotes.core.di
 
 import com.example.androidQuotes.data.network.quote.QuoteApiClient
 import dagger.Module
