@@ -38,7 +38,7 @@ fun QuoteScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color(0xFF4F1497))
+                .background(color = Color(0xFF201F1F))
                 .padding(20.dp)
         ) {
             if (isErrorGettingQuotes) {
@@ -58,7 +58,7 @@ fun QuoteScreen(
         Box(
             modifier = modifier
                 .fillMaxSize()
-                .background(color = Color(0xFF4F1497))
+                .background(color = Color(0xFF1A247C))
                 .clickable {
                     quoteViewModel.randomQuote()
                 }
