@@ -1,6 +1,5 @@
 package com.example.androidQuotes.data.repository.quote
 
-import com.example.androidQuotes.data.database.quote.QuoteProvider
 import com.example.androidQuotes.data.database.quote.dao.QuoteDao
 import com.example.androidQuotes.data.database.quote.entities.QuoteEntity
 import com.example.androidQuotes.data.model.quote.QuoteModel
@@ -21,5 +20,13 @@ class QuoteRepository @Inject constructor(
     suspend fun getAllQuotesFromDatabase(): List<Quote> {
         val quotesFromDatabase: List<QuoteEntity> = quoteDao.getAllQuotes()
         return quotesFromDatabase.map { it.toDomain() }
+    }
+
+    suspend fun insertQuotes(quotes: List<QuoteEntity>) {
+        quoteDao.insertAllQuotes(quotes = quotes)
+    }
+
+    suspend fun clearQuotes() {
+        quoteDao.deleteAllQuotes()
     }
 }
