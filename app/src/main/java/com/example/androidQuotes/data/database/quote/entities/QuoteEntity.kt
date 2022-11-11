@@ -18,5 +18,5 @@ data class QuoteEntity(
     val author: String
 )
 
-
+//Mapper from Quote(Domain model) to Entity (Database model)
 fun Quote.toDatabase() = QuoteEntity(quote = quote, author = author)

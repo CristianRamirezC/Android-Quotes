@@ -8,5 +8,8 @@ data class Quote(
     val author: String
 )
 
+//Mapper from QuoteModel (Data layer Model) to Quote(Domain model)
 fun QuoteModel.toDomain() = Quote(quote, author)
+
+//Mapper from QuoteEntity (Database model) to Quote(Domain model)
 fun QuoteEntity.toDomain() = Quote(quote, author)
