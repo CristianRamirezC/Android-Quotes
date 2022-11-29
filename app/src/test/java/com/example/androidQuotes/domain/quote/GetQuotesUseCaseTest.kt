@@ -24,9 +24,12 @@ class GetQuotesUseCaseTest {
     }
 
     @Test
-    fun `when the api return nothing then get the quotes from DDBB`(): Unit = runBlocking {
+    fun `when the api return nothing then get the quotes from DDBB`()
+            : Unit = runBlocking {
         //Given
-        coEvery { quoteRepository.getAllQuotesFromApi() } returns emptyList()
+        coEvery {
+            quoteRepository.getAllQuotesFromApi()
+        } returns emptyList()
 
         //When
         getQuotesUseCase()
@@ -39,17 +42,38 @@ class GetQuotesUseCaseTest {
     }
 
     @Test
-    fun `when the api returns a list of Quotes then use those values`(): Unit =
-        runBlocking {
-            //Given
-            val quoteList = listOf(Quote(quote = "Hello World", author = "Programmers"))
-            coEvery { quoteRepository.getAllQuotesFromApi() } returns quoteList
+    fun `when api returns something then DDBB is cleared and values from api are inserted`()
+            : Unit = runBlocking {
+        //Given
+        val quoteList = listOf(
+            Quote(quote = "Hello World", author = "Programmers")
+        )
+        coEvery {
+            quoteRepository.getAllQuotesFromApi()
+        } returns quoteList
 
-            //When
-            val response = getQuotesUseCase()
+        //When
+        getQuotesUseCase()
 
-            //Then
-            coVerify {  }
+        //Then
+        coVerify(exactly = 1) { quoteRepository.clearQuotes() }
+        coVerify(exactly = 1) { quoteRepository.insertQuotes(any()) }
+        coVerify(exactly = 0) { quoteRepository.getAllQuotesFromDatabase() }
+    }
 
-        }
+    @Test
+    fun `when the api returns a list of Quotes then the use case returns that list`()
+            : Unit = runBlocking {
+        //Given
+        val quoteList = listOf(
+            Quote(quote = "Hello World", author = "Programmers")
+        )
+        coEvery { quoteRepository.getAllQuotesFromApi() } returns quoteList
+
+        //When
+        val useCaseResponse = getQuotesUseCase()
+
+        //Then
+        assert(quoteList == useCaseResponse)
+    }
 }
