@@ -34,7 +34,6 @@ class GetQuotesUseCaseTest {
         //When
         getQuotesUseCase()
 
-
         //Then
         coVerify(exactly = 1) { quoteRepository.getAllQuotesFromDatabase() }
         coVerify(exactly = 0) { quoteRepository.clearQuotes() }
