@@ -30,22 +30,60 @@ class GetRandomQuoteUseCaseTest {
     fun `when DDBB is not empty then get the quotes from it`(): Unit =
         runBlocking {
             //Given
-            val quoteList = listOf(
+            val quoteList: List<Quote> = listOf(
                 Quote(quote = "Hello World", author = "Programmers")
             )
-            coEvery { quoteRepository.getAllQuotesFromDatabase() } returns quoteList
+            coEvery {
+                quoteRepository.getAllQuotesFromDatabase()
+            } returns quoteList
 
             //When
-            getRandomQuoteUseCase()
+            val useCaseResponse: Quote? = getRandomQuoteUseCase()
 
             //Then
             coVerify(exactly = 1) { quoteRepository.getAllQuotesFromDatabase() }
             coVerify(exactly = 0) { quoteRepository.getAllQuotesFromApi() }
+            assert(quoteList[0] == useCaseResponse)
         }
 
     @Test
-    fun `when DDBB is empty then get the quotes from api`(): Unit =
+    fun `when DDBB is empty then get something from api`(): Unit =
         runBlocking {
-            
+            //Given
+            val quoteList: List<Quote> = listOf(
+                Quote(quote = "Hello World", author = "Programmers")
+            )
+            coEvery {
+                quoteRepository.getAllQuotesFromDatabase()
+            } returns emptyList()
+
+            coEvery { quoteRepository.getAllQuotesFromApi() } returns quoteList
+
+            //When
+            val useCaseResponse: Quote? = getRandomQuoteUseCase()
+
+            //Then
+            coVerify(exactly = 1) { quoteRepository.getAllQuotesFromDatabase() }
+            coVerify(exactly = 1) { quoteRepository.getAllQuotesFromApi() }
+            assert(quoteList[0] == useCaseResponse)
+        }
+
+    @Test
+    fun `when DDBB is empty and get nothing from api then return null`(): Unit =
+        runBlocking {
+            //Given
+            coEvery {
+                quoteRepository.getAllQuotesFromDatabase()
+            } returns emptyList()
+
+            coEvery {
+                quoteRepository.getAllQuotesFromApi()
+            } returns emptyList()
+
+            //When
+            val useCaseResponse: Quote? = getRandomQuoteUseCase()
+
+            //Then
+            assert(useCaseResponse == null)
         }
 }
