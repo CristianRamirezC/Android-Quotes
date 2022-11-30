@@ -43,7 +43,7 @@ class GetRandomQuoteUseCaseTest {
             //Then
             coVerify(exactly = 1) { quoteRepository.getAllQuotesFromDatabase() }
             coVerify(exactly = 0) { quoteRepository.getAllQuotesFromApi() }
-            assert(quoteList[0] == useCaseResponse)
+            assert(quoteList.first() == useCaseResponse)
         }
 
     @Test
@@ -65,7 +65,7 @@ class GetRandomQuoteUseCaseTest {
             //Then
             coVerify(exactly = 1) { quoteRepository.getAllQuotesFromDatabase() }
             coVerify(exactly = 1) { quoteRepository.getAllQuotesFromApi() }
-            assert(quoteList[0] == useCaseResponse)
+            assert(quoteList.first() == useCaseResponse)
         }
 
     @Test
