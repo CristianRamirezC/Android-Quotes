@@ -34,6 +34,8 @@ class QuoteViewModel
     fun onCreate() {
         viewModelScope.launch {
             _isLoading.postValue(true)
+            _isErrorGettingQuotes.postValue(false)
+
             val quotes = getQuotesUseCase()
             if (quotes.isNotEmpty()) {
                 val firstQuoteToShow: Quote = quotes[quotes.indices.random()]
@@ -50,6 +52,7 @@ class QuoteViewModel
         viewModelScope.launch {
             _isLoading.postValue(true)
             _isErrorGettingQuotes.postValue(false)
+
             val randomQuote: Quote? = getRandomQuoteUseCase()
             if (randomQuote != null) {
                 _quote.postValue(randomQuote.quote)
