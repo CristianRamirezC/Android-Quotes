@@ -31,7 +31,11 @@ class GetRandomQuoteUseCaseTest {
         runBlocking {
             //Given
             val quoteList: List<Quote> = listOf(
-                Quote(quote = "Hello World", author = "Programmers")
+                Quote("Hello World", "Programmers"),
+                Quote(
+                    "It's not a bug, it's an undocumented feature",
+                    "Anonymous"
+                )
             )
             coEvery {
                 quoteRepository.getAllQuotesFromDatabase()
@@ -43,7 +47,7 @@ class GetRandomQuoteUseCaseTest {
             //Then
             coVerify(exactly = 1) { quoteRepository.getAllQuotesFromDatabase() }
             coVerify(exactly = 0) { quoteRepository.getAllQuotesFromApi() }
-            assert(quoteList.first() == useCaseResponse)
+            assert(quoteList.contains(useCaseResponse))
         }
 
     @Test
@@ -51,7 +55,11 @@ class GetRandomQuoteUseCaseTest {
         runBlocking {
             //Given
             val quoteList: List<Quote> = listOf(
-                Quote(quote = "Hello World", author = "Programmers")
+                Quote("Hello World", "Programmers"),
+                Quote(
+                    "It's not a bug, it's an undocumented feature",
+                    "Anonymous"
+                )
             )
             coEvery {
                 quoteRepository.getAllQuotesFromDatabase()
@@ -65,7 +73,7 @@ class GetRandomQuoteUseCaseTest {
             //Then
             coVerify(exactly = 1) { quoteRepository.getAllQuotesFromDatabase() }
             coVerify(exactly = 1) { quoteRepository.getAllQuotesFromApi() }
-            assert(quoteList.first() == useCaseResponse)
+            assert(quoteList.contains(useCaseResponse))
         }
 
     @Test
